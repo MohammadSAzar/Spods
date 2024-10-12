@@ -1,0 +1,48 @@
+{% extends '_base.html' %}
+
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+    {% trans 'Homepage | Spods' %}
+{% endblock %}
+
+
+{% block banner %}
+    <!-- Banner -->
+    <div class="header-content py-6 is-dark mt-lg-n1 mt-n3">
+        <div class="container">
+            <div class="row flex-row-reverse justify-content-center text-center g-gs">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header-caption">
+                        <h1 class="header-title">واسطه میان اسپانسرها و تولیدکنندگان محتوا</h1>
+                        <p>اسپادز به عنوان یک پلتفرم واسطه، تولیدکنندگان محتوا را که نیاز به اسپانسر دارند، به کسب و کارهای متقاضی اسپانسری، متصل می‌کند</p>
+
+                        <!-- Registration links -->
+                        <ul class="header-action btns-inline py-3">
+                            <li><a href="{% url 'registration_cm' %}" class="btn btn-primary btn-lg"><span>{% trans 'a CM looking for sponsor' %}</span></a></li>
+                            <li><a href="{% url 'registration_bo' %}" class="btn btn-danger btn-lg"><span>{% trans 'a BO looking for sponsee' %}</span></a></li>
+                        </ul>
+                        <!-- end: Registration links -->
+
+                        <!-- Actions -->
+                        <ul class="header-icon list-inline pt-1">
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/javascript.png' %}" alt="" /></li>
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/sass.png' %}" alt="" /></li>
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/gulp.png' %}" alt="" /></li>
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/bootstrap.png' %}" alt="" /></li>
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/html5.png' %}" alt="" /></li>
+                            <li><img class="h-20px" src="{% static 'home/src/images/icon/libs/css3.png' %}" alt="" /></li>
+                        </ul>
+                        <!-- end: Actions -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: Banner -->
+{% endblock %}
+
+

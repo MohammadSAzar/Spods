@@ -22,7 +22,9 @@ INSTALLED_APPS = [
     'jalali_date',
     'widget_tweaks',
 
-    'sponsorships'
+    'sponsorships',
+    'pages',
+    'templates'  # for apply translations!
 ]
 
 
@@ -46,7 +48,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(BASE_DIR.joinpath('templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +131,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

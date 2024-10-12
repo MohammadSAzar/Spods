@@ -1,0 +1,90 @@
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+<!DOCTYPE html>
+<html lang="fa" class="js">
+    <head>
+        <base href="../../../" />
+        <meta charset="utf-8" />
+        <meta name="author" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+
+        <!-- Fav -->
+        <link rel="shortcut icon" href="{% static 'home/src/images/favicon.png' %}" />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{% static 'home/src/assets/css/dashlite.rtl.css' %}" />
+        <link rel="stylesheet" href="{% static 'home/src/assets/css/theme.css' %}" />
+
+        <!-- JS -->
+        <script src="{% static 'home/src/assets/js/bundle.js' %}"></script>
+        <script src="{% static 'home/src/assets/js/scripts.js' %}"></script>
+
+        <!-- Title -->
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body class="has-rtl nk-body bg-white npc-general pg-auth" dir="rtl">
+        <div class="nk-app-root">
+            <!-- Main -->
+            <div class="nk-main">
+                <div class="nk-wrap nk-wrap-nosidebar">
+                    <div class="nk-content">
+                        <!-- Content -->
+                        <div class="nk-block nk-block-middle nk-auth-body wide-xs">
+
+                            <!-- Logo -->
+                            <div class="brand-logo pb-4 text-center">
+                                <a href="html/index.html" class="logo-link">
+                                    <img class="logo-light logo-img logo-img-lg" src="{% static 'home/src/images/logo.png' %}" srcset="{% static 'home/src/images/logo2x.png' %}" alt="لوگو" />
+                                    <img class="logo-dark logo-img logo-img-lg" src="{% static 'home/src/images/logo-dark.png' %}" srcset="{% static 'home/src/images/logo-dark2x.png' %}" alt="لوگوی تاریک" />
+                                </a>
+                            </div>
+
+                            <!-- Form -->
+                            {% block form %}
+
+                            {% endblock %}
+
+                        </div>
+                        <!-- end: Content -->
+
+                        <!-- Footer -->
+                        <div class="nk-footer nk-auth-footer-full">
+                            <div class="container wide-lg">
+                                <div class="row g-3">
+                                    <div class="col-lg-6 order-lg-last">
+                                        <ul class="nav nav-sm justify-content-center justify-content-lg-end">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">شرایط و ضوابط</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">سیاست حفظ حریم خصوصی</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">راهنمایی</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="nk-block-content text-center text-lg-left">
+                                            <p class="text-soft">© تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط <a target="_blank" rel="nofollow" href="https://www.rtl-theme.com/author/farshid_tarnian">فرشید ترنیان</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end: Footer -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- end: Main -->
+        </div>
+
+    </body>
+
+</html>
