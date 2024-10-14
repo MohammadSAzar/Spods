@@ -36,6 +36,7 @@ def registration_cm_view(request):
                 otp = get_random_otp()
                 send_otp(phone_number, otp)
                 user.otp_code = otp
+                user.type = 'cm'
                 user.is_active = False
                 user.save()
                 request.session['user_phone_number'] = user.phone_number
@@ -70,6 +71,7 @@ def registration_bo_view(request):
                 otp = get_random_otp()
                 send_otp(phone_number, otp)
                 user.otp_code = otp
+                user.type = 'bo'
                 user.is_active = False
                 user.save()
                 request.session['user_phone_number'] = user.phone_number
@@ -90,6 +92,7 @@ def verification_view(request):
             user.is_active = True
             user.save()
             login(request, user)
+            print('IS LOGGED IN')
             return HttpResponseRedirect(reverse('home'))
         context = {
             'phone_number': phone_number,
@@ -97,5 +100,14 @@ def verification_view(request):
         return render(request, 'sponsorships/verification.html', context)
     except CustomUserModel.DoesNotExist:
         return HttpResponseRedirect(reverse('registration'))
+
+
+# -------------------------------- Dashboard --------------------------------
+def dashboard_cm_view(request):
+    pass
+
+
+def dashboard_bo_view(request):
+    pass
 
 

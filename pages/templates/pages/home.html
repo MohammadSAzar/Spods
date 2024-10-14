@@ -22,8 +22,37 @@
 
                         <!-- Registration links -->
                         <ul class="header-action btns-inline py-3">
-                            <li><a href="{% url 'registration_cm' %}" class="btn btn-primary btn-lg"><span>{% trans 'a CM looking for sponsor' %}</span></a></li>
-                            <li><a href="{% url 'registration_bo' %}" class="btn btn-danger btn-lg"><span>{% trans 'a BO looking for sponsee' %}</span></a></li>
+                            {% if user.is_authenticated %}
+                                {% if user.type == 'cm' %}
+                                    <li><a href="{% url 'home' %}" class="btn btn-primary btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'CM Dashboard' %}</span>
+                                    </a></li>
+                                    <li><a href="{% url 'registration_bo' %}" class="btn btn-danger btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'a BO looking for sponsee' %}</span>
+                                    </a></li>
+                                {% elif user.type == 'bo' %}
+                                    <li><a href="{% url 'home' %}" class="btn btn-primary btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'a CM looking for sponsor' %}</span>
+                                    </a></li>
+                                    <li><a href="{% url 'home' %}" class="btn btn-danger btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'BO Dashboard' %}</span>
+                                    </a></li>
+                                {% else %}
+                                    <li><a href="{% url 'registration_cm' %}" class="btn btn-primary btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'a CM looking for sponsor' %}</span>
+                                    </a></li>
+                                    <li><a href="{% url 'registration_bo' %}" class="btn btn-danger btn-lg center" style="width: 220px;">
+                                        <span>{% trans 'a BO looking for sponsee' %}</span>
+                                    </a></li>
+                                {% endif %}
+                            {% else %}
+                                <li><a href="{% url 'registration_cm' %}" class="btn btn-primary btn-lg center" style="width: 220px;">
+                                    <span>{% trans 'a CM looking for sponsor' %}</span>
+                                </a></li>
+                                <li><a href="{% url 'registration_bo' %}" class="btn btn-danger btn-lg center" style="width: 220px;">
+                                    <span>{% trans 'a BO looking for sponsee' %}</span>
+                                </a></li>
+                            {% endif %}
                         </ul>
                         <!-- end: Registration links -->
 
