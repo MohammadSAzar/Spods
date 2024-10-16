@@ -9,7 +9,6 @@ def home_view(request):
         user = CustomUserModel.objects.get(phone_number=phone_number)
     except CustomUserModel.DoesNotExist:
         user = request.user
-        print(user)
     context = {
         'user': user,
     }

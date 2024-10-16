@@ -1,0 +1,18 @@
+{% extends '_dashboard.html' %}
+
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+    {% if user.type == 'cm' %}
+        {% trans 'CM Dashboard' %}
+    {% elif user.type == 'bo' %}
+        {% trans 'BO Dashboard' %}
+    {% endif %}
+{% endblock %}
+
+
+
+

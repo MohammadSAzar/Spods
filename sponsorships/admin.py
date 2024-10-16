@@ -16,8 +16,7 @@ class ContentMakerInline(admin.StackedInline):
     model = models.ContentMaker
     can_delete = False
     verbose_name_plural = 'CM'
-    fields = ('title', 'creator', 'platform', 'ready', 'min_price', 'max_price', 'played', 'subscribers', 'status',
-              'datetime_created',)
+    fields = ('title', 'creator', 'platform', 'ready', 'min_price', 'max_price', 'played', 'subscribers', 'status',)
 
 
 @admin.register(models.BusinessOwner)
@@ -30,7 +29,7 @@ class BusinessOwnerInline(admin.StackedInline):
     model = models.BusinessOwner
     can_delete = False
     verbose_name_plural = 'BO'
-    fields = ('title', 'field', 'status', 'datetime_created',)
+    fields = ('title', 'field', 'status',)
 
 
 # ---------------------------------------- CUM ----------------------------------------

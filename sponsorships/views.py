@@ -93,7 +93,7 @@ def verification_view(request):
             user.save()
             login(request, user)
             print('IS LOGGED IN')
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('dashboard'))
         context = {
             'phone_number': phone_number,
         }
@@ -103,11 +103,31 @@ def verification_view(request):
 
 
 # -------------------------------- Dashboard --------------------------------
-def dashboard_cm_view(request):
+def dashboard_view(request):
+    try:
+        phone_number = request.session.get('user_phone_number')
+        user = CustomUserModel.objects.get(phone_number=phone_number)
+    except CustomUserModel.DoesNotExist:
+        user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'sponsorships/dashboard.html', context=context)
+
+
+def dashboard_channel_view(request):
     pass
 
 
-def dashboard_bo_view(request):
+def dashboard_positions_view(request):
+    pass
+
+
+def dashboard_requests_view(request):
+    pass
+
+
+def dashboard_history_view(request):
     pass
 
 
