@@ -9,6 +9,7 @@ from config.settings import kavenegar_API
 from .models import CustomUserModel
 
 
+# ---------------------------------- Auth ----------------------------------
 def send_otp(phone_number, otp):
     time.sleep(2)
     phone_number = [phone_number, ]
@@ -64,16 +65,10 @@ def phone_checker(phone):
         return False
 
 
+# --------------------------------- Profile ---------------------------------
 email_regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 def email_checker(email):
     if re.fullmatch(email_regex, email):
-        return True
-    return False
-
-
-postal_code_regex = '^\d{10}$'
-def postal_code_checker(postal_code):
-    if re.fullmatch(postal_code_regex, postal_code):
         return True
     return False
 
@@ -97,5 +92,12 @@ def national_code_checker(code):
 
     except ValueError:
         return False
+
+
+min_price = 1000000  # TOOMAN
+max_price = 500000000  # TOOMAN
+def min_price_checker(price):
+    if min_price <= price <= max_price:
+        return True
 
 

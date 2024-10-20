@@ -1,0 +1,642 @@
+{% extends '_dashboard.html' %}
+
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+    {% trans 'CM Panel' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="nk-block">
+        <div class="card card-bordered">
+            <div class="card-aside-wrap">
+
+                <!-- Main -->
+                <div class="card-inner card-inner-lg ">
+
+                    <!-- Form -->
+                    <div class="card card-bordered">
+                        {% if user.info_status == 'nc' %}
+
+                            <!-- Title -->
+                            <h4 class="nk-block-title" style="text-align: center; margin:1em 0;">{% trans 'Completion Information Form' %}</h4>
+
+                            <!-- Form -->
+                            <div class="card-inner">
+                                <form method="post" class="form-validate" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-gs">
+
+                                        <!-- title -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.title.id_for_label }}">{% trans 'Title' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.title type="text" id="title" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- creator -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.creator.id_for_label }}">{% trans 'Creator Name' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.creator type="text" id="creator" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- national code -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.national_code.id_for_label }}">{% trans 'Creator National Code' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.national_code type="text" id="national_code" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_comp.national_code.errors %}
+                                                {% for error in form_cm_comp.national_code.errors %}
+                                                    <p style="color: red; margin-top: 0.8em; font-size: 0.75em;">{{ error }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- platform -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.platform.id_for_label }}">{% trans 'Platform' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.platform type="text" id="platform" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- field -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.field.id_for_label }}">{% trans 'Field' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.field type="text" id="field" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- email -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.email.id_for_label }}">{% trans 'Creator Email' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.email type="text" id="email" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_comp.email.errors %}
+                                                    {% for error in form_cm_comp.email.errors %}
+                                                        <p style="color: red; margin-top: 0.8em; font-size: 0.9em;">{{ error }}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- min price -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.min_price.id_for_label }}">{% trans 'Min Price' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.min_price type="number" id="min_price" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_comp.min_price.errors %}
+                                                    {% for error in form_cm_comp.min_price.errors %}
+                                                        <p style="color: red; margin-top: 0.8em; font-size: 0.75em;">{{ error }}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- cover -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.cover.id_for_label }}">{% trans 'Cover' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.cover type="file" id="cover" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- general proposal -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.general_proposal.id_for_label }}">{% trans 'General Proposal' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.general_proposal type="file" id="general_proposal" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- description -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.description.id_for_label }}">{% trans 'Description' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.description type="file" id="description" class="form-control form-control-sm" placeholder="توضیحات کانال خود را بنویسید" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link1.id_for_label }}">{% trans 'Link1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link1 type="text" id="link1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link2.id_for_label }}">{% trans 'Link2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link2 type="text" id="link2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link3.id_for_label }}">{% trans 'Link3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link3 type="text" id="link3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link4.id_for_label }}">{% trans 'Link4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link4 type="text" id="link4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id1.id_for_label }}">{% trans 'Id1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id1 type="text" id="id1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id2.id_for_label }}">{% trans 'Id2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id2 type="text" id="id2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id3.id_for_label }}">{% trans 'Id3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id3 type="text" id="id3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id4.id_for_label }}">{% trans 'Id4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id4 type="text" id="id4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- button -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary">{% trans 'Submit Information' %}</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        {% elif user.info_status == 'cm' or user.info_status == 'du' %}
+
+                            <!-- Title -->
+                            <h4 class="nk-block-title" style="text-align: center; margin:1em 0;">{% trans 'Edit Information Form' %}</h4>
+
+                            <!-- Form -->
+                            <div class="card-inner">
+                                <form method="post" class="form-validate" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-gs">
+
+                                        <!-- title -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.title.id_for_label }}">{% trans 'Title' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.title type="text" id="title" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- platform -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.platform.id_for_label }}">{% trans 'Platform' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.platform type="text" id="platform" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- field -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.field.id_for_label }}">{% trans 'Field' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.field type="text" id="field" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- min price -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.min_price.id_for_label }}">{% trans 'Min Price' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.min_price type="number" id="min_price" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_edit.min_price.errors %}
+                                                    {% for error in form_cm_edit.min_price.errors %}
+                                                        <p style="color: red; margin-top: 0.8em; font-size: 0.75em;">{{ error }}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- cover -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.cover.id_for_label }}">{% trans 'Cover' %}</label>
+                                                <div class="form-control-wrap" id="cover-display">
+                                                    {% render_field form_cm_edit.cover type="file" id="cover" class="form-control" %}
+                                                    {% if form_cm_edit.instance.cover %}
+                                                        <p style="margin-top: 0.7em; font-size: 0.85em;">{% trans 'Current file: ' %}<a href="{{ form_cm_edit.instance.cover.url }}" target="_blank">{% trans 'View Cover' %}</a></p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- general proposal -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.general_proposal.id_for_label }}">{% trans 'General Proposal' %}</label>
+                                                <div class="form-control-wrap" id="proposal-display">
+                                                    {% render_field form_cm_edit.general_proposal type="file" id="general_proposal" class="form-control" %}
+                                                    {% if form_cm_edit.instance.general_proposal %}
+                                                        <p style="margin-top: 0.7em; font-size: 0.85em;">{% trans 'Current file: ' %}<a href="{{ form_cm_edit.instance.general_proposal.url }}" target="_blank">{% trans 'View Proposal' %}</a></p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- description -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.description.id_for_label }}">{% trans 'Description' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.description type="file" id="description" class="form-control form-control-sm" placeholder="توضیحات کانال خود را بنویسید" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.link1.id_for_label }}">{% trans 'Link1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.link1 type="text" id="link1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.link2.id_for_label }}">{% trans 'Link2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.link2 type="text" id="link2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.link3.id_for_label }}">{% trans 'Link3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.link3 type="text" id="link3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.link4.id_for_label }}">{% trans 'Link4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.link4 type="text" id="link4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.id1.id_for_label }}">{% trans 'Id1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.id1 type="text" id="id1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.id2.id_for_label }}">{% trans 'Id2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.id2 type="text" id="id2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.id3.id_for_label }}">{% trans 'Id3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.id3 type="text" id="id3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_edit.id4.id_for_label }}">{% trans 'Id4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_edit.id4 type="text" id="id4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- button -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary">{% trans 'Submit Information' %}</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        {% elif user.info_status == 'ip' %}
+
+                            <!-- Title -->
+                            <p class="nk-block-title" style="text-align: center; margin:1em 0;">اطلاعات شما به عنوان تولیدکننده محتوا دریافت شده و پس از بررسی، پنل شما فعال خواهد شد.</p>
+
+                        {% elif user.info_status == 'bo' %}
+
+                            <!-- Title -->
+                            <p class="nk-block-title"  style="text-align: center; margin:1em 0;">شما به عنوان اسپانسر در سایت فعال هستید، در صورتی که تمایل دارید به عنوان تولیدکننده محتوا نیز فعالیت کنید، فرم زیر را تکمیل نمایید.</p>
+
+                            <!-- Form -->
+                            <div class="card-inner">
+                                <form method="post" class="form-validate" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-gs">
+
+                                        <!-- title -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.title.id_for_label }}">{% trans 'Title' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.title type="text" id="title" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- creator -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.creator.id_for_label }}">{% trans 'Creator Name' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.creator type="text" id="creator" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- national code -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.national_code.id_for_label }}">{% trans 'Creator National Code' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.national_code type="text" id="national_code" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_comp.national_code.errors %}
+                                                {% for error in form_cm_comp.national_code.errors %}
+                                                    <p style="color: red; margin-top: 0.8em; font-size: 0.75em;">{{ error }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- platform -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.platform.id_for_label }}">{% trans 'Platform' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.platform type="text" id="platform" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- field -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.field.id_for_label }}">{% trans 'Field' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.field type="text" id="field" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- min price -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.min_price.id_for_label }}">{% trans 'Min Price' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.min_price type="number" id="min_price" class="form-control" %}
+                                                </div>
+                                                {% if form_cm_comp.min_price.errors %}
+                                                    {% for error in form_cm_comp.min_price.errors %}
+                                                        <p style="color: red; margin-top: 0.8em; font-size: 0.75em;">{{ error }}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <!-- cover -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.cover.id_for_label }}">{% trans 'Cover' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.cover type="file" id="cover" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- general proposal -->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.general_proposal.id_for_label }}">{% trans 'General Proposal' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.general_proposal type="file" id="general_proposal" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- description -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.description.id_for_label }}">{% trans 'Description' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.description type="file" id="description" class="form-control form-control-sm" placeholder="توضیحات کانال خود را بنویسید" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link1.id_for_label }}">{% trans 'Link1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link1 type="text" id="link1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link2.id_for_label }}">{% trans 'Link2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link2 type="text" id="link2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link3.id_for_label }}">{% trans 'Link3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link3 type="text" id="link3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- link4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.link4.id_for_label }}">{% trans 'Link4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.link4 type="text" id="link4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id1 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id1.id_for_label }}">{% trans 'Id1' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id1 type="text" id="id1" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id2 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id2.id_for_label }}">{% trans 'Id2' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id2 type="text" id="id2" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id3 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id3.id_for_label }}">{% trans 'Id3' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id3 type="text" id="id3" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- id4 -->
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="{{ form_cm_comp.id4.id_for_label }}">{% trans 'Id4' %}</label>
+                                                <div class="form-control-wrap">
+                                                    {% render_field form_cm_comp.id4 type="text" id="id4" class="form-control" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- button -->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-lg btn-primary">{% trans 'Submit Information' %}</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                        {% endif %}
+
+
+                    </div>
+
+                </div>
+                <!-- end: Main -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

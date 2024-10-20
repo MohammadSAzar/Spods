@@ -7,7 +7,9 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.shortcuts import reverse
 from django.utils.text import slugify
+from django.core.validators import FileExtensionValidator
 from django.utils.translation import gettext as _
+
 
 from .managers import CustomUserManager
 
@@ -15,20 +17,17 @@ from .managers import CustomUserManager
 # --------------------------------- CUM ---------------------------------
 class CustomUserModel(AbstractUser):
     INFO_STATUS_CHOICES = [
-        ('cm', _('Completed')),
-        ('nc', _('Not Completed')),
-        ('ip', _('In Progress')),
-    ]
-    TYPE_CHOICES = [
         ('cm', _('Content Maker')),
         ('bo', _('Business Owner')),
+        ('du', _('Dual - Both')),
+        ('nc', _('Not Completed')),
+        ('ip', _('In Progress')),
     ]
     username = None
     phone_number = models.CharField(max_length=11, unique=True, verbose_name=_('Phone Number'))
     otp_code = models.PositiveIntegerField(blank=True, null=True)
     otp_code_datetime_created = models.DateTimeField(auto_now=True)
     info_status = models.CharField(max_length=3, choices=INFO_STATUS_CHOICES, blank=True, null=True, default='nc', verbose_name=_('User Status'))
-    type = models.CharField(max_length=3, choices=TYPE_CHOICES, blank=True, null=True, verbose_name=_('User Type'))
 
     objects = CustomUserManager()
     backend = 'accounts.backends.CustomAuthBackend'
@@ -90,6 +89,7 @@ class ContentMaker(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True, related_name='content_maker')
     title = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('Title'))
     creator = models.CharField(max_length=100, blank=True, null=True, verbose_name=_('Creator'))
+    national_code = models.CharField(max_length=10, blank=True, null=True, verbose_name=_('National Code'))
     description = models.CharField(max_length=500, verbose_name=_('Description'))
     cover = models.ImageField(upload_to='CM/covers/', verbose_name=_('CM Profile Cover'))
     slug = models.SlugField(max_length=250, null=True, blank=True, unique=True, allow_unicode=True)
@@ -97,23 +97,24 @@ class ContentMaker(models.Model):
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, blank=True, null=True, default='ip', verbose_name=_('CM Status'))
     platform = models.CharField(max_length=3, choices=PLATFORM_CHOICES, blank=True, null=True, verbose_name=_('CM Platform'))
     field = models.CharField(max_length=3, choices=FIELD_CHOICES, blank=True, null=True, verbose_name=_('CM Field'))
-    link1 = models.CharField(max_length=200, verbose_name=_('Link1'))
-    link2 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('Link2'))
-    link3 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('Link3'))
-    link4 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('Link4'))
+    link1 = models.URLField(max_length=200, verbose_name=_('Link1'))
+    link2 = models.URLField(max_length=200, blank=True, null=True, verbose_name=_('Link2'))
+    link3 = models.URLField(max_length=200, blank=True, null=True, verbose_name=_('Link3'))
+    link4 = models.URLField(max_length=200, blank=True, null=True, verbose_name=_('Link4'))
     id1 = models.CharField(max_length=200, verbose_name=_('ID1'))
     id2 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('ID2'))
     id3 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('ID3'))
     id4 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('ID4'))
     email = models.CharField(max_length=300, blank=True, null=True, verbose_name=_('Email'))
     min_price = models.PositiveIntegerField(verbose_name=_('Min Price'))
-    max_price = models.PositiveIntegerField(verbose_name=_('Max Price'))
     activity_years = models.CharField(max_length=4, choices=ACTIVITY_YEARS_CHOICES, blank=True, null=True, verbose_name=_('Activity Years'))
     played = models.PositiveBigIntegerField(blank=True, null=True, verbose_name=_('Played (Viewed)'))
     subscribers = models.PositiveBigIntegerField(blank=True, null=True, verbose_name=_('Subscribers (Followers)'))
-    sponsee_experience = models.CharField(max_length=3, choices=SPONSOR_EXPERIENCE_CHOICES, blank=True, null=True, verbose_name=_('Sponsee Experience'))
+    sponsee_experience = models.CharField(max_length=3, choices=SPONSOR_EXPERIENCE_CHOICES, blank=True, null=True,
+                                          verbose_name=_('Sponsee Experience'))
     ready = models.CharField(max_length=3, choices=READY_CHOICES, blank=True, null=True, verbose_name=_('Ready to Receive Requests'))
-    general_proposal = models.FileField(upload_to='CM/general_proposals/', blank=True, null=True, verbose_name=_('General Proposal'))
+    general_proposal = models.FileField(upload_to='CM/general_proposals/', blank=True, null=True, validators=[FileExtensionValidator(['pdf'])],
+                                        verbose_name=_('General Proposal'))
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -180,14 +181,16 @@ class BusinessOwner(models.Model):
     cover = models.ImageField(upload_to='BO/covers/', verbose_name=_('BO Profile Cover'))
     slug = models.SlugField(max_length=250, null=True, blank=True, unique=True, allow_unicode=True)
     datetime_created = models.DateField(auto_now_add=True, verbose_name=_('Datetime of Creation'))
-    status = models.CharField(max_length=3, choices=STATUS_CHOICES, blank=True, null=True, default='ip', verbose_name=_('CM Status'))
-    field = models.CharField(max_length=3, choices=FIELD_CHOICES, blank=True, null=True, verbose_name=_('CM Field'))
-    link1 = models.CharField(max_length=200, verbose_name=_('Link1'))
-    link2 = models.CharField(max_length=200, blank=True, null=True, verbose_name=_('Link2'))
+    status = models.CharField(max_length=3, choices=STATUS_CHOICES, blank=True, null=True, default='ip', verbose_name=_('BO Status'))
+    field = models.CharField(max_length=3, choices=FIELD_CHOICES, blank=True, null=True, verbose_name=_('BO Field'))
+    link1 = models.URLField(max_length=200, verbose_name=_('Link1'))
+    link2 = models.URLField(max_length=200, blank=True, null=True, verbose_name=_('Link2'))
     email = models.CharField(max_length=300, blank=True, null=True, verbose_name=_('Email'))
-    activity_years = models.CharField(max_length=4, choices=ACTIVITY_YEARS_CHOICES, blank=True, null=True, verbose_name=_('Activity Years'))
-    sponsor_experience = models.CharField(max_length=3, choices=SPONSOR_EXPERIENCE_CHOICES, blank=True, null=True, verbose_name=_('Sponsor Experience'))
-    general_proposal = models.FileField(upload_to='BO/general_proposals/', blank=True, null=True, verbose_name=_('General Proposal'))
+    year = models.CharField(max_length=4, choices=ACTIVITY_YEARS_CHOICES, blank=True, null=True, verbose_name=_('Foundation Year'))
+    sponsor_experience = models.CharField(max_length=3, choices=SPONSOR_EXPERIENCE_CHOICES, blank=True, null=True,
+                                          verbose_name=_('Sponsor Experience'))
+    general_proposal = models.FileField(upload_to='BO/general_proposals/', blank=True, null=True, validators=[FileExtensionValidator(['pdf'])],
+                                        verbose_name=_('General Proposal'))
 
     def save(self, *args, **kwargs):
         if not self.slug:

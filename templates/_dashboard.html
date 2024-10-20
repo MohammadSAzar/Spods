@@ -29,12 +29,10 @@
 
     <body class="has-rtl nk-body bg-lighter npc-general has-sidebar" dir="rtl">
         <div class="nk-app-root">
-
-            <!-- Main -->
             <div class="nk-main">
 
                 <!-- Sidebar -->
-                <div class="nk-sidebar nk-sidebar-fixed is-dark" data-content="sidebarMenu">
+                <div class="nk-sidebar nk-sidebar-fixed is-dark " data-content="sidebarMenu">
 
                     <!-- Logo -->
                     <div class="nk-sidebar-element nk-sidebar-head">
@@ -58,23 +56,29 @@
                                 <!-- items -->
                                 <ul class="nk-menu">
 
-                                    <!-- info -->
+                                    <!-- general -->
                                     <li class="nk-menu-item">
                                         <a href="{% url 'dashboard' %}" class="nk-menu-link">
-                                            <span class="nk-menu-icon"><em class="icon ni ni-dashlite"></em></span>
-                                            <span class="nk-menu-text">{% trans 'General Information' %}</span>
+                                            <span class="nk-menu-icon"><em class="icon ni ni-bitcoin-cash"></em></span>
+                                            <span class="nk-menu-text">{% trans 'General Panel' %}</span>
                                         </a>
                                     </li>
 
                                     <!-- channel -->
-                                    {% if user.type == 'cm' %}
-                                        <li class="nk-menu-item">
-                                            <a href="{% url 'dashboard_channel' %}" class="nk-menu-link">
-                                                <span class="nk-menu-icon"><em class="icon ni ni-bitcoin-cash"></em></span>
-                                                <span class="nk-menu-text">{% trans 'Channel Information' %}</span>
-                                            </a>
-                                        </li>
-                                    {% endif %}
+                                    <li class="nk-menu-item">
+                                        <a href="{% url 'dashboard_channel' %}" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-bitcoin-cash"></em></span>
+                                            <span class="nk-menu-text">{% trans 'Channel Panel' %}</span>
+                                        </a>
+                                    </li>
+
+                                    <!-- business -->
+                                    <li class="nk-menu-item">
+                                        <a href="{% url 'dashboard_business' %}" class="nk-menu-link">
+                                            <span class="nk-menu-icon"><em class="icon ni ni-bitcoin-cash"></em></span>
+                                            <span class="nk-menu-text">{% trans 'Business Panel' %}</span>
+                                        </a>
+                                    </li>
 
                                     <!-- positions -->
                                     <li class="nk-menu-item">
@@ -101,144 +105,81 @@
                                     </li>
 
                                 </ul>
-                                <!-- .nk-menu -->
+                                <!-- end: items -->
                             </div>
-                            <!-- .nk-sidebar-menu -->
                         </div>
-                        <!-- .nk-sidebar-content -->
                     </div>
-                    <!-- .nk-sidebar-element -->
+                    <!-- end: Vertical menu -->
+
                 </div>
-                <!-- sidebar @e -->
+                <!-- end: Sidebar -->
 
-
-                <!-- wrap @s -->
+                <!-- Header & Content -->
                 <div class="nk-wrap">
-                    <!-- main header @s -->
+
+                    <!-- Header -->
                     <div class="nk-header nk-header-fixed is-light">
                         <div class="container-fluid">
                             <div class="nk-header-wrap">
+
+                                <!-- Trigger -->
                                 <div class="nk-menu-trigger d-xl-none ms-n1">
                                     <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                                 </div>
+
+                                <!-- Logo -->
                                 <div class="nk-header-brand d-xl-none">
-                                    <a href="html/index.html" class="logo-link">
-                                        <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="لوگو" />
-                                        <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="لوگوی تاریک" />
+                                    <a href="{% url 'home' %}" class="logo-link">
+                                        <img class="logo-light logo-img" src="{% static 'dashboard/src/images/logo.png' %}" alt="spods-logo" />
+                                        <img class="logo-dark logo-img" src="{% static 'dashboard/src/images/logo-dark.png' %}" alt="spods-logo" />
                                     </a>
                                 </div>
-                                <!-- .nk-header-brand -->
+
+                                <!-- Link (at header) -->
                                 <div class="nk-header-news d-none d-xl-block">
                                     <div class="nk-news-list">
-                                        <a class="nk-news-item" href="#">
+                                        <a class="nk-news-item" href="{% url 'home' %}">
                                             <div class="nk-news-icon">
                                                 <em class="icon ni ni-card-view"></em>
                                             </div>
                                             <div class="nk-news-text">
-                                                <p>
-                                                    آیا از آخرین به روز رسانی سال 1402 اطلاع دارید؟ <span> نمای کلی ما هم اکنون در یوتیوب در دسترس است</span>
-                                                </p>
+                                                <p>از کانال یوتیوب اسپادز و ویدئوهای آن بازدید کنید</p>
                                                 <em class="icon ni ni-external"></em>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
-                                <!-- .nk-header-news -->
+
+                                <!-- Name & Exit & Notifs -->
                                 <div class="nk-header-tools">
                                     <ul class="nk-quick-nav">
-                                        <li class="dropdown language-dropdown d-none d-sm-block me-n1">
-                                            <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
-                                                <div class="quick-icon border border-light">
-                                                    <img class="icon" src="./images/flags/iran-sq.png" alt="" />
-                                                </div>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-s1">
-                                                <ul class="language-list">
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="./images/flags/iran.png" alt="" class="language-flag" />
-                                                            <span class="language-name">فارسی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="./images/flags/english.png" alt="" class="language-flag" />
-                                                            <span class="language-name">انگلیسی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="./images/flags/germany.png" alt="" class="language-flag" />
-                                                            <span class="language-name">آلمانی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <img src="./images/flags/french.png" alt="" class="language-flag" />
-                                                            <span class="language-name">فرانسوی</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
 
-
-                                        <!-- .dropdown -->
+                                        <!-- Name & Exit -->
                                         <li class="dropdown user-dropdown">
                                             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
                                                 <div class="user-toggle">
-                                                    <div class="user-avatar sm">
-                                                        <em class="icon ni ni-user-alt"></em>
-                                                    </div>
                                                     <div class="user-info d-none d-md-block">
-                                                        <div class="user-status">مدیر</div>
                                                         <div class="user-name dropdown-indicator">
-                                                            فرشید ترنیان
+                                                            <span style="font-size: 2em;">{{ user }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-md dropdown-menu-end dropdown-menu-s1">
-                                                <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
-                                                    <div class="user-card">
-                                                        <div class="user-avatar">
-                                                            <span>ف‌ت</span>
-                                                        </div>
-                                                        <div class="user-info">
-                                                            <span class="lead-text">فرشید ترنیان</span>
-                                                            <span class="sub-text">your@email.com</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="dropdown-inner">
                                                     <ul class="link-list">
                                                         <li>
-                                                            <a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>مشاهده پروفایل</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="html/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>تنظیمات حساب</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>فعالیت ورود</span></a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>حالت تاریک</span></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div class="dropdown-inner">
-                                                    <ul class="link-list">
-                                                        <li>
-                                                            <a href="#"><em class="icon ni ni-signout"></em><span>خروج</span></a>
+                                                            <form action="{% url 'logout' %}" method="post">
+                                                                {% csrf_token %}
+                                                                <button type="submit" style="background-color: white; border: none;"><em class="icon ni ni-signout" style="margin-left: 1.5em;"></em>{% trans 'Exit' %}</button>
+                                                            </form>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </li>
-                                        <!-- .dropdown -->
 
-
-
+                                        <!-- Notifs -->
                                         <li class="dropdown notification-dropdown me-n1">
                                             <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-bs-toggle="dropdown">
                                                 <div class="icon-status icon-status-info">
@@ -327,205 +268,46 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <!-- .dropdown -->
+
                                     </ul>
-                                    <!-- .nk-quick-nav -->
                                 </div>
-                                <!-- .nk-header-tools -->
+                                <!-- end: Name & Exit & Notifs -->
+
                             </div>
-                            <!-- .nk-header-wrap -->
                         </div>
-                        <!-- .container-fliud -->
                     </div>
-                    <!-- main header @e -->
-                    <!-- content @s -->
+                    <!-- end: Header -->
+
+                    <!-- Content -->
                     <div class="nk-content">
                         <div class="container-fluid">
                             <div class="nk-content-inner">
                                 <div class="nk-content-body">
-                                    <p>صفحه شروع برای طرح بندی کلی.</p>
+                                    {% block content %}
+
+                                    {% endblock %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- content @e -->
-                    <!-- footer @s -->
+                    <!-- end: Content -->
+
+                    <!-- Footer -->
                     <div class="nk-footer">
                         <div class="container-fluid">
                             <div class="nk-footer-wrap">
                                 <div class="nk-footer-copyright">
-                                    © تمام حقوق محفوظ است. فارسی و راستچین سازی شده توسط <a target="_blank" rel="nofollow" href="https://www.rtl-theme.com/author/farshid_tarnian">فرشید ترنیان</a>
-                                </div>
-                                <div class="nk-footer-links">
-                                    <ul class="nav nav-sm">
-                                        <li class="nav-item dropup">
-                                            <a href="#" class="dropdown-toggle dropdown-indicator has-indicator nav-link text-base" data-bs-toggle="dropdown" data-offset="0,10"><span>فارسی</span></a>
-                                            <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                <ul class="language-list">
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <span class="language-name">فارسی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <span class="language-name">انگلیسی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <span class="language-name">آلمانی</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="language-item">
-                                                            <span class="language-name">فرانسوی</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a data-bs-toggle="modal" href="#region" class="nav-link"><em class="icon ni ni-globe"></em><span class="ms-1">کشور را انتخاب کنید</span></a>
-                                        </li>
-                                    </ul>
+                                    تمامی حقوق متعلق به اسپادز است - طراحی شده توسط هومساز
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- footer @e -->
-                </div>
-                <!-- wrap @e -->
-            </div>
-            <!-- main @e -->
-        </div>
-        <!-- app-root @e -->
-        <!-- select region modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="region">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                    <div class="modal-body modal-body-md">
-                        <h5 class="title mb-4">کشور خود را انتخاب کنید</h5>
-                        <div class="nk-country-region">
-                            <ul class="country-list text-center gy-2">
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/arg.png" alt="" class="country-flag" />
-                                        <span class="country-name">آرژانتین</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/aus.png" alt="" class="country-flag" />
-                                        <span class="country-name">استرالیا</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/bangladesh.png" alt="" class="country-flag" />
-                                        <span class="country-name">بنگلادش</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/canada.png" alt="" class="country-flag" />
-                                        <span class="country-name">کانادا <small>(انگلیسی)</small></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/s-africa.png" alt="" class="country-flag" />
-                                        <span class="country-name">سانترافریکائین</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/china.png" alt="" class="country-flag" />
-                                        <span class="country-name">چین</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/french.png" alt="" class="country-flag" />
-                                        <span class="country-name">فرانسه</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/germany.png" alt="" class="country-flag" />
-                                        <span class="country-name">آلمان</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/iran.png" alt="" class="country-flag" />
-                                        <span class="country-name">ایران</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/italy.png" alt="" class="country-flag" />
-                                        <span class="country-name">ایتالیا</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/mexico.png" alt="" class="country-flag" />
-                                        <span class="country-name">مکزیک</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/philipine.png" alt="" class="country-flag" />
-                                        <span class="country-name">فیلیپین</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/portugal.png" alt="" class="country-flag" />
-                                        <span class="country-name">پرتقال</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/s-africa.png" alt="" class="country-flag" />
-                                        <span class="country-name">آفریقای جنوبی</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/spanish.png" alt="" class="country-flag" />
-                                        <span class="country-name">اسپانیا</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/switzerland.png" alt="" class="country-flag" />
-                                        <span class="country-name">سوئیس</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/uk.png" alt="" class="country-flag" />
-                                        <span class="country-name">انگلستان</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="country-item">
-                                        <img src="./images/flags/english.png" alt="" class="country-flag" />
-                                        <span class="country-name">ایالات متحده آمریکا</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- .modal-content -->
-            </div>
-            <!-- .modla-dialog -->
-        </div>
-        <!-- .modal -->
+                    <!-- end: Footer -->
 
+                </div>
+                <!-- end: Header & Content -->
+
+            </div>
+        </div>
     </body>
 </html>

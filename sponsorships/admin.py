@@ -8,15 +8,14 @@ from .forms import AdminPanelUserChangeForm, AdminPanelUserCreateForm
 @admin.register(models.ContentMaker)
 class ContentMakerAdmin(admin.ModelAdmin):
     model = models.ContentMaker
-    list_display = ('title', 'creator', 'platform', 'ready', 'min_price', 'max_price', 'played', 'subscribers', 'status',
-                    'datetime_created',)
+    list_display = ('title', 'creator', 'platform', 'ready', 'min_price', 'played', 'subscribers', 'status', 'datetime_created',)
 
 
 class ContentMakerInline(admin.StackedInline):
     model = models.ContentMaker
     can_delete = False
     verbose_name_plural = 'CM'
-    fields = ('title', 'creator', 'platform', 'ready', 'min_price', 'max_price', 'played', 'subscribers', 'status',)
+    fields = ('title', 'creator', 'platform', 'ready', 'min_price', 'played', 'subscribers', 'status',)
 
 
 @admin.register(models.BusinessOwner)
@@ -36,12 +35,12 @@ class BusinessOwnerInline(admin.StackedInline):
 class CustomUserAdmin(BaseUserAdmin):
     form = AdminPanelUserChangeForm
     add_form = AdminPanelUserCreateForm
-    inlines = (BusinessOwnerInline, BusinessOwnerInline)
+    inlines = (ContentMakerInline, BusinessOwnerInline)
 
-    list_display = ('phone_number', 'info_status', 'type', 'is_staff', 'is_superuser')
+    list_display = ('phone_number', 'info_status', 'is_staff', 'is_superuser')
     list_filter = ('is_staff', 'is_superuser')
     fieldsets = (
-        (None, {'fields': ('phone_number', 'password', 'info_status', 'type')}),
+        (None, {'fields': ('phone_number', 'password', 'info_status')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser')}),
     )
     add_fieldsets = (

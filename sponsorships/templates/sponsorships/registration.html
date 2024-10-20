@@ -28,16 +28,6 @@
             <form method="post">
                 {% csrf_token %}
 
-                <!-- Type -->
-                <div class="form-group">
-                    <div class="form-label-group">
-                        <label class="form-label" for={{ form.type.id_for_label }}>{% trans 'User Type: ' %}</label>
-                    </div>
-                    <div class="form-control-wrap">
-                        <input value="{% trans 'BO' %}" type="text" id="type" class="form-control form-control-lg" readonly/>
-                    </div>
-                </div>
-
                 <!-- Phone -->
                 <div class="form-group">
                     <div class="form-label-group">

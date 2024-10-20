@@ -6,13 +6,139 @@
 
 
 {% block title %}
-    {% if user.type == 'cm' %}
-        {% trans 'CM Dashboard' %}
-    {% elif user.type == 'bo' %}
-        {% trans 'BO Dashboard' %}
-    {% endif %}
+    {% trans 'Dashboard' %}
 {% endblock %}
 
 
+{% block content %}
+    <div class="nk-block">
+        <div class="card card-bordered">
+            <div class="card-aside-wrap">
 
+                <!-- Main -->
+                <div class="card-inner card-inner-lg">
+
+                    <!-- Ribbon -->
+                    <div class="nk-block-head nk-block-head-lg ">
+                        <div class="nk-block-between">
+                            <div class="nk-block-head-content">
+                                <h4 class="nk-block-title">{% trans 'General Information' %}</h4>
+                                <div class="nk-block-des">
+                                    <p>اطلاعات پایه شامل شماره تلفن، نوع حساب و نام شما در اسپادز</p>
+                                </div>
+                            </div>
+                            <div class="nk-block-head-content align-self-start d-lg-none">
+                                <a href="#" class="toggle btn btn-icon btn-trigger mt-n1" data-target="userAside"><em class="icon ni ni-menu-alt-r"></em></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info -->
+                    <div class="nk-block">
+                        <div class="nk-data data-list">
+
+                            <!-- Phone -->
+                            <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
+                                <div class="data-col">
+                                    <span class="data-label">{% trans 'Phone Number' %}</span>
+                                    <span class="data-value">{{ user.phone_number }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="data-item" style="border-bottom: none;">
+                                <div class="data-col">
+                                    <span class="data-label">{% trans 'User Status' %}</span>
+                                    <span class="data-value">{{ user.get_info_status_display }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Link & Message -->
+                            <div class="nk-block">
+                                <div class="card card-bordered">
+                                    <div class="card-inner-group">
+                                        <div class="card-inner">
+                                            <div class="between-center flex-wrap g-3">
+
+                                                {% if user.info_status == 'cm' %}
+                                                    <!-- Text -->
+                                                    <div class="nk-block-text">
+                                                        <p>اطلاعات کاربری شما به عنوان <span style="color:#6576ff; font-size: medium; font-weight: bold"> تولیدکننده محتوا </span> تکمیل ‌شده است. برای مشاهده یا تغییر اطلاعات آن به لینک روبرو بروید.</p>
+                                                    </div>
+                                                    <!-- Action -->
+                                                    <div class="nk-block-actions flex-shrink-sm-0">
+                                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-3 gy-2">
+                                                            <li class="order-md-last">
+                                                                <a href="{% url 'dashboard_channel' %}" class="btn btn-primary">{% trans 'Channel Panel' %}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                {% elif user.info_status == 'bo' %}
+                                                    <!-- Text -->
+                                                    <div class="nk-block-text">
+                                                        <p>اطلاعات کاربری شما به عنوان <span style="color:#6576ff; font-size: medium; font-weight: bold"> تولیدکننده محتوا </span> تکمیل ‌شده است. برای مشاهده یا تغییر اطلاعات آن به لینک روبرو بروید.</p>
+                                                    </div>
+                                                    <!-- Action -->
+                                                    <div class="nk-block-actions flex-shrink-sm-0">
+                                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-3 gy-2">
+                                                            <li class="order-md-last">
+                                                                <a href="{% url 'dashboard_business' %}" class="btn btn-primary">{% trans 'Business Panel' %}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                {% elif user.info_status == 'du' %}
+                                                    <!-- Text -->
+                                                    <div class="nk-block-text">
+                                                        <p>اطلاعات کاربری شما به عنوان <span style="color:#6576ff; font-size: medium; font-weight: bold"> تولیدکننده محتوا </span>و<span style="color:#6576ff; font-size: medium; font-weight: bold"> اسپانسر </span>و تکمیل ‌شده است. برای مشاهده یا تغییر اطلاعات از لینک‌های روبرو استفاده نمایید.</p>
+                                                    </div>
+                                                    <!-- Action -->
+                                                    <div class="nk-block-actions flex-shrink-sm-0">
+                                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-3 gy-2">
+                                                            <li class="order-md-last">
+                                                                <a href="{% url 'dashboard_channel' %}" class="btn btn-primary">{% trans 'Channel Panel' %}</a>
+                                                                <a href="{% url 'dashboard_business' %}" class="btn btn-primary">{% trans 'Business Panel' %}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                {% elif user.info_status == 'ip' %}
+                                                    <!-- Text -->
+                                                    <div class="nk-block-text">
+                                                        <p>اطلاعات کاربری در دست بررسی است و نتیجه آن در سریع‌ترین زمان ممکن تعیین می‌شود.</p>
+                                                    </div>
+
+                                                {% elif user.info_status == 'nc' %}
+                                                    <!-- Text -->
+                                                    <div class="nk-block-text">
+                                                        <p>شما اطلاعات خود را نه به عنوان تولیدکننده محتوا و نه به عنوان اسپانسر، ثبت نکرده‌اید، برای این منظور روی یکی از لینک‌های روبرو کلیک نمایید.</p>
+                                                    </div>
+                                                    <!-- Action -->
+                                                    <div class="nk-block-actions flex-shrink-sm-0">
+                                                        <ul class="align-center flex-wrap flex-sm-nowrap gx-3 gy-2">
+                                                            <li class="order-md-last">
+                                                                <a href="{% url 'dashboard_channel' %}" class="btn btn-primary">{% trans 'Channel Panel' %}</a>
+                                                                <a href="{% url 'dashboard_business' %}" class="btn btn-primary">{% trans 'Business Panel' %}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- end: Main -->
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
 

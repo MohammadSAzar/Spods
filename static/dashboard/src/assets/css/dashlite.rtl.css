@@ -51075,5 +51075,26 @@ em.icon.ni.ni-comments {
 .tox-toolbar .tox-toolbar__group:first-child {
   flex-direction: row-reverse;
 }
-
 /*! END @iO */
+
+
+/*! Edit forms instances */
+.form-control {
+    margin-top: 10px;
+}
+
+#cover-display, #proposal-display {
+    margin-bottom: 15px;
+}
+
+#cover-display a, #proposal-display a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+#cover-display a:hover, #proposal-display a:hover {
+    text-decoration: underline;
+}
+
+
