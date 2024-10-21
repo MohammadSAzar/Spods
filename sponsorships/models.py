@@ -30,7 +30,7 @@ class CustomUserModel(AbstractUser):
     info_status = models.CharField(max_length=3, choices=INFO_STATUS_CHOICES, blank=True, null=True, default='nc', verbose_name=_('User Status'))
 
     objects = CustomUserManager()
-    backend = 'accounts.backends.CustomAuthBackend'
+    backend = 'sponsorships.backends.CustomAuthBackend'
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
 
