@@ -135,6 +135,21 @@ class BOInfoCompletionForm(forms.ModelForm):
         return cleaned_data
 
 
+class BOInfoCompletionDualForm(forms.ModelForm):
+    class Meta:
+        model = models.BusinessOwner
+        fields = ['title', 'description', 'field', 'link1', 'link2', 'year', 'sponsor_experience', 'cover', 'general_proposal']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        required_fields = ['title', 'description', 'field', 'link1', 'year', 'sponsor_experience', 'cover', 'general_proposal']
+        for field in required_fields:
+            self.fields[field].required = True
+
+
 class BOInfoEditForm(forms.ModelForm):
     class Meta:
         model = models.BusinessOwner

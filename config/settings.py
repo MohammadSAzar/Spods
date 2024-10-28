@@ -24,7 +24,8 @@ INSTALLED_APPS = [
 
     'sponsorships',
     'pages',
-    'templates'  # for apply translations!
+    'templates',  # for apply translations!
+    'sample',
 ]
 
 

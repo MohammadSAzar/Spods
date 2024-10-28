@@ -44,7 +44,7 @@ class ContentMaker(models.Model):
         ('ip', _('In Progress')),
     ]
     PLATFORM_CHOICES = [
-        ('pd', _('Podcaster')),
+        ('pd', _('Podcast')),
         ('in', _('Instagram')),
         ('yt', _('Youtube')),
         ('ap', _('Aparat')),

@@ -7,7 +7,8 @@ from django.views.generic import ListView
 
 
 from .models import CustomUserModel, ContentMaker, BusinessOwner
-from .forms import RegistrationForm, CMInfoCompletionForm, BOInfoCompletionForm, CMInfoEditForm, BOInfoEditForm
+from .forms import (RegistrationForm, CMInfoCompletionForm, BOInfoCompletionForm, CMInfoEditForm, BOInfoEditForm,
+                    BOInfoCompletionDualForm)
 from .checkers import send_otp, get_random_otp, otp_time_checker
 
 
@@ -167,19 +168,19 @@ def dashboard_business_view(request):
             context['form_bo_comp'] = form_bo_comp
 
         if user.info_status == 'cm':
-            form_bo_comp = BOInfoCompletionForm(request.POST, request.FILES)
+            form_bo_comp_du = BOInfoCompletionDualForm(request.POST, request.FILES)
             current_profile = get_object_or_404(ContentMaker, user=user)
-            if form_bo_comp.is_valid():
-                business_owner = form_bo_comp.save(commit=False)
+            if form_bo_comp_du.is_valid():
+                business_owner = form_bo_comp_du.save(commit=False)
                 business_owner.email = current_profile.email
                 business_owner.save()
                 user.business_owner = business_owner
-                form_bo_comp.save()
+                form_bo_comp_du.save()
                 user.info_status = 'ip'
                 user.save()
                 messages.success(request, "اطلاعات شما دریافت شد، نتیجه فرایند احراز هویت بزودی تعیین می‌شود.")
                 return HttpResponseRedirect(reverse('dashboard'))
-            context['form_bo_comp'] = form_bo_comp
+            context['form_bo_comp_du'] = form_bo_comp_du
 
         if user.info_status == 'bo' or user.info_status == 'du':
             current_profile = get_object_or_404(BusinessOwner, user=user)
@@ -193,7 +194,9 @@ def dashboard_business_view(request):
     else:
         print('ASS')
         form_bo_comp = BOInfoCompletionForm()
+        form_bo_comp_du = BOInfoCompletionDualForm()
         context['form_bo_comp'] = form_bo_comp
+        context['form_bo_comp_du'] = form_bo_comp_du
         if user.info_status == 'bo' or user.info_status == 'du':
             current_profile = get_object_or_404(BusinessOwner, user=user)
             form_bo_edit = BOInfoEditForm(instance=current_profile)
